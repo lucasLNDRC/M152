@@ -1,0 +1,29 @@
+#--------------------------------------------------
+# Répertoire : 
+# TODO : règles de réécritures non finalisées, à revoir en détail
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine on
+
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+
+# Action avec id :
+RewriteRule ^([a-zA-Z]+)/([0-9]+)$   index.php?action=$1&id=$2 [L]
+
+# Action sans id :
+RewriteRule ^([a-zA-Z]+)$   index.php?action=$1 [L]
+
+# index.php
+RewriteRule ^index$ index.php [L]
+
+# RewriteCond %{REQUEST_URI} !images/.*$
+# RewriteCond %(REQUEST_URI) !css/.*$
+# RewriteRule ^(.*)$ index.php?action=$1 [L]
