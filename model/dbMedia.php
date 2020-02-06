@@ -13,7 +13,8 @@ class Media{
         ":creationDate"=> $creationDate, 
         ":nomFichierMedia"=> $nomFichierMedia, 
         ":typeMedia"=> $typeMedia];
-        return $this->dataBase->Insert($sql, $data);;
+        echo "good";
+        return $this->dataBase->Insert($sql, $data);
     }
 
     function ReadAllMedia(){
@@ -34,12 +35,18 @@ class Media{
         return $this->dataBase->Select($sql, $data);
     }
 
+    function ReadMediaByNomFichierMedia($nomFichierMedia){
+        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media` WHERE nomFichierMedia = :nomFichierMedia";
+        $data = [":nomFichierMedia" => $nomFichierMedia];
+        return $this->dataBase->Select($sql, $data);
+    }
+
     function EditMediaByIdMedia($idMedia, $idPost, $modoficationDate){
         $sql = "UPDATE `facebook`.`media` 
         SET `idPost`=:idPost, modoficationDate=:modoficationDate, nomFichierMedia=:nomFichierMedia, typeMedia=:typeMedia
-         WHERE `idMedia`=:idMedia;";
+        WHERE `idMedia`=:idMedia;";
         $data=[":idPost"=> $idPost,
-        ":nomFichierMedia"=> $nomFichierMedia, 
+        ":nomFichierMedia"=> $nomFichierMedia,
         ":typeMedia"=> $typeMedia,
         ":idMedia" => $idMedia];
         return $this->dataBase->Insert($sql, $data);;

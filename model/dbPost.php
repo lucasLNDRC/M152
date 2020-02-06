@@ -12,7 +12,7 @@ class Post{
         $data=[":commentaire"=> $commentaire, 
         ":creationDate"=> $creationDate];
 
-        return $this->dataBase->Insert($sql, $data);;
+        return $this->dataBase->Insert($sql, $data);
     }
 
     function ReadAllPost(){
