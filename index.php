@@ -7,8 +7,7 @@
 
 require_once 'model/session.php';
 require_once 'model/db.php';
-$db = new Db;
-$db->Db();
+$db = new Db();
 
 $action = filter_input(INPUT_GET, "action", FILTER_SANITIZE_URL);
 if (empty($action)) {
@@ -16,7 +15,6 @@ if (empty($action)) {
 }
 
 $role = getRole();
-var_dump($action, $role, $_POST);
 
 // routage explicite entre les actions et les contrôleurs
 // le routage implicite est à éviter, car il sera tôt ou tard à l'origine 
@@ -43,7 +41,6 @@ $routes = array(
     )
     
 );
-var_dump($routes[$role][$action]);
 try {
     // si la route existe pour le role choisi, on l'utilise
     if (isset($routes[$role][$action])){

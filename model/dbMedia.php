@@ -1,30 +1,47 @@
 <?php
 class Media{
-    function InsertMedia($idPost, $creationDate){
-        $sql = "INSERT INTO `media`(`idPost`, `creationDate`, `modoficationDate`) 
-        VALUES (:idPost, :creationDate, '0-0-0')";
+    private $dataBase;
+
+    function __construct($dbb){
+        $this->dataBase = $dbb;
+    }
+
+    function InsertMedia( $nomFichierMedia, $typeMedia, $creationDate, $idPost){
+        $sql = "INSERT INTO `facebook`.`Media` (`nomFichierMedia`, `typeMedia`, `creationDate`, `idPost`) 
+        VALUES (:nomFichierMedia, :typeMedia, :creationDate, :idPost);";
         $data=[":idPost"=> $idPost, 
-        ":creationDate"=> $creationDate];
-        return $db->Insert($sql, $data);
+        ":creationDate"=> $creationDate, 
+        ":nomFichierMedia"=> $nomFichierMedia, 
+        ":typeMedia"=> $typeMedia];
+        return $this->dataBase->Insert($sql, $data);;
     }
 
     function ReadAllMedia(){
-        $sql = "SELECT `idMedia`, `commentaire`, `creationDate`, `modoficationDate`,idPost FROM `media`";
+        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media`";
         $data = [];
-        return $db->Select($sql, $data);
+        return $this->dataBase->Select($sql, $data);
     }
 
     function ReadMediaByIdMedia($id){
-        $sql = "SELECT `idMedia`, `commentaire`, `creationDate`, `modoficationDate`,idPost FROM `media` WHERE idMedia = :id";
+        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media` WHERE idMedia = :id";
         $data = [":id" => $id];
-        return $db->Select($sql, $data);
+        return $this->dataBase->Select($sql, $data);
+    }
+
+    function ReadMediaByIdPost($idPost){
+        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media` WHERE idPost = :id";
+        $data = [":id" => $idPost];
+        return $this->dataBase->Select($sql, $data);
     }
 
     function EditMediaByIdMedia($idMedia, $idPost, $modoficationDate){
-        $sql = "UPDATE `facebook`.`media` SET `idPost`=:idPost, modoficationDate=:modoficationDate WHERE `idMedia`=:idMedia;";
-        $data = [":idMedia" => $idMedia,
-        ":idPost"=> $idPost, 
-        ":modoficationDate"=> $modoficationDate];
-        return $db->Insert($sql, $data);
+        $sql = "UPDATE `facebook`.`media` 
+        SET `idPost`=:idPost, modoficationDate=:modoficationDate, nomFichierMedia=:nomFichierMedia, typeMedia=:typeMedia
+         WHERE `idMedia`=:idMedia;";
+        $data=[":idPost"=> $idPost,
+        ":nomFichierMedia"=> $nomFichierMedia, 
+        ":typeMedia"=> $typeMedia,
+        ":idMedia" => $idMedia];
+        return $this->dataBase->Insert($sql, $data);;
     }
 }

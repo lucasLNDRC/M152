@@ -35,11 +35,11 @@ CREATE TABLE IF NOT EXISTS `facebook`.`Media` (
   `typeMedia` VARCHAR(5) NOT NULL,
   `creationDate` DATE NOT NULL,
   `modification` DATE NULL,
-  `post_idPost` INT NOT NULL,
-  PRIMARY KEY (`idMedia`, `post_idPost`),
-  INDEX `fk_Media_post_idx` (`post_idPost` ASC),
+  `idPost` INT NOT NULL,
+  PRIMARY KEY (`idMedia`, `idPost`),
+  INDEX `fk_Media_post_idx` (`idPost` ASC),
   CONSTRAINT `fk_Media_post`
-    FOREIGN KEY (`post_idPost`)
+    FOREIGN KEY (`idPost`)
     REFERENCES `facebook`.`post` (`idPost`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

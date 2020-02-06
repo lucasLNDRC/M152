@@ -14,14 +14,14 @@ class Db{
      * effectue la connexion à la base de données 
      * PDO objet de connexion à la base de données
      */
-    function Db()
+    function __construct()
     {
         try{
-            if ($db === null)
+            if ($this->db === null)
             {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $db = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PWD, $pdo_options);
-                $db->exec('SET CHARACTER SET utf8');
+                $this->db = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PWD, $pdo_options);
+                $this->db->exec('SET CHARACTER SET utf8');
             } 
         }
         catch (Exception $e){ die($e); echo $e;}
@@ -30,19 +30,19 @@ class Db{
     /**
      * 
      */
-    function Select($sql, $data=null){
+    function Select($sql, $data){
         try{
-            $query = $db->prepare($sql);
+            $query = $this->db->prepare($sql);
             $query->execute($data);
             
-            $data = $query->fetchAll(PDO::FETCH_ASSOC);
-            if (count($data)>1)
-                return $data;
+            $donnee = $query->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (count($donnee)>1)
+                return $donnee;
             else
-                return  $query->fetch(PDO::FETCH_ASSOC);
+                return  $donnee[0];
         }
         catch (Exception $e) {
-            echo $e;
             die("Impossible de se connecter à la base ". $e->getMessage());
             
         }
@@ -51,17 +51,15 @@ class Db{
      /**
      * 
      */
-    function Inserte($sql){
+    function Insert($sql, $data){
         try{
-            $query = $db->prepare($sql);
+            $query = $this->db->prepare($sql);
     
             $query->execute($data);
             return true;
         }
         catch (Exception $e) {
-            echo $e;
             die("Impossible de se connecter à la base ". $e->getMessage());
-           
             return false;
         }
     }

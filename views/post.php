@@ -32,7 +32,7 @@
 								<div class="modal-footer">
 									<div>
 										<label for="fileToUpload" class="Mylabel"><h4>Upload picture:</h4></label>
-										<input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+										<?= (isset($erreur["size"]) ? $erreur["size"] : "") ?>
 										<h4><input type="file" name="fileToUpload[]" accept="image/jpeg,image/png,image/gif" multiple id="fileToUpload"></h4>
 									</div>
 									<div>
