@@ -16,6 +16,7 @@ if (empty($action)) {
 }
 
 $role = getRole();
+var_dump($action, $role, $_POST);
 
 // routage explicite entre les actions et les contrôleurs
 // le routage implicite est à éviter, car il sera tôt ou tard à l'origine 
@@ -23,32 +24,37 @@ $role = getRole();
 $routes = array(
     'anonymous' => array(
         'home' => 'home',
-        'post' => 'post'
+        'post' => 'post',
+        'default'=>'home'
     ),
     'banned' => array(
-        'home' => 'home'
+        'home' => 'home',
+        'default'=>'home'
     ),
     'member' => array(
         'home' => 'home',
-        'post' => 'post'
+        'post' => 'post',
+        'default'=>'home'
     ),
     'admin' => array(
         'home' => 'home',
-        'post' => 'post'
+        'post' => 'post',
+        'default'=>'home'
     )
     
 );
-
+var_dump($routes[$role][$action]);
 try {
     // si la route existe pour le role choisi, on l'utilise
     if (isset($routes[$role][$action])){
         $route = $routes[$role][$action];
+        
     } else {
         // sinon on prend la route par défaut
         $route = $routes[$role]['default'];
-        SetMessageFlash("Action non définie ($action)");
     }
     require_once "controllers/$route.php";
 } catch (Exception $e) {
-    require_once 'views/500.php';
+   die("Impossible de se connecter à la base ". $e->getMessage());
+   require_once 'views/500.php';
 }

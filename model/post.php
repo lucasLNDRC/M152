@@ -1,19 +1,23 @@
 <?php
-
+echo "model";
 $btn= filter_input(INPUT_POST, "post");
 
 $commentaire = filter_input(INPUT_POST, "commentaire");
-//$filesToUploads = filter_input(INPUT_POST, "fileToUpload[]");
-$btn = filter_input(INPUT_POST, "post");
+$filesToUploads = filter_input(INPUT_POST, "fileToUpload[]");
 
+$post = new Post($db);
 if ($btn == "post"){
-    $post = new post;
+    
+    var_dump($btn,$commentaire, $_FILES, $post, $newpost);
     $post->InsertPost($commentaire, "Now()");
+    echo "pb";
     $newpost = $post->ReadPostByCommentaire($commentaire);
 
     if(isset($_FILES) && is_array($_FILES) && count($_FILES)>0) {
+        echo "good";
+        try{
         // Raccourci d'écriture pour le tableau reçu
-        $fichiers = $_FILES['fileToUpload[]"'];
+        $fichiers = $_FILES['fileToUpload[]'];
         // Boucle itérant sur chacun des fichiers
         for($i=0;$i<count($fichiers['name']);$i++){
             // Affichage d’informations diverses
@@ -26,16 +30,18 @@ if ($btn == "post"){
             // Nettoyage du nom de fichier
             $nom_fichier = preg_replace('/[^a-z0-9\.\-]/
             i','',$fichiers['name'][$i]);
-            // Déplacement depuis le répertoire temporaire
-            move_uploaded_file($fichiers['tmp_name'][$i],'uploads/
-            '.$nom_fichier);
             
-            // Si le type MIME correspond à une image, on l’affiche
+            // Si le type MIME correspond à une image, Déplacement depuis le répertoire temporaire et on l’affiche
             if(preg_match('/image/',$fichiers['type'][$i])) {
-                echo '<br><img src="uploads/'.$nom_fichier.'">';
+                
+                move_uploaded_file($fichiers['tmp_name'][$i],'img/upload/'.$nom_fichier);
+                
+                echo '<br><img src="img/upload/'.$nom_fichier.'">';
             }
             echo '</p>';
         }
+    }
+    catch(Exception $e){echo "doesn't work ".$e;}
     }
     
 /*

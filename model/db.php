@@ -24,7 +24,7 @@ class Db{
                 $db->exec('SET CHARACTER SET utf8');
             } 
         }
-        catch (Exception $e){ }
+        catch (Exception $e){ die($e); echo $e;}
     }
 
     /**
@@ -42,7 +42,9 @@ class Db{
                 return  $query->fetch(PDO::FETCH_ASSOC);
         }
         catch (Exception $e) {
-            return null;
+            echo $e;
+            die("Impossible de se connecter à la base ". $e->getMessage());
+            
         }
     }
 
@@ -57,6 +59,9 @@ class Db{
             return true;
         }
         catch (Exception $e) {
+            echo $e;
+            die("Impossible de se connecter à la base ". $e->getMessage());
+           
             return false;
         }
     }

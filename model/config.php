@@ -9,6 +9,6 @@
 const DB_SERVER = 'localhost';
 const DB_NAME = 'facebook';
 const DB_USER = 'root';
-const DB_PWD = '';
+const DB_PWD = 'Super';
 
 
