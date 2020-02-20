@@ -31,7 +31,10 @@
 								<form action="?action=post" method="POST" enctype="multipart/form-data">
 								<div class="modal-footer">
 									<div>
-										<label for="fileToUpload" class="Mylabel"><h4>Upload picture:</h4></label>
+										<label for="fileToUpload[]" class="Mylabel"><h4>Upload picture:</h4></label>
+										<?= (isset($erreur["exist"]) ? $erreur["exist"] : "") ?>
+										<?= (isset($erreur["type"]) ? $erreur["type"] : "") ?>
+										<?= (isset($erreur["move"]) ? $erreur["move"] : "") ?>
 										<?= (isset($erreur["size"]) ? $erreur["size"] : "") ?>
 										<h4><input type="file" name="fileToUpload[]" accept="image/jpeg,image/png,image/gif" multiple id="fileToUpload"></h4>
 									</div>

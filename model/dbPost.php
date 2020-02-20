@@ -8,7 +8,7 @@ class Post{
 
     function InsertPost($commentaire, $creationDate){
         $sql = "INSERT INTO `post`(`commentaire`, `creationDate`, `modificationDate`) 
-        VALUES (:commentaire, :creationDate, '0-0-0')";
+        VALUES (:commentaire, :creationDate, :creationDate)";
         $data=[":commentaire"=> $commentaire, 
         ":creationDate"=> $creationDate];
 
@@ -19,6 +19,20 @@ class Post{
         $sql = "SELECT `idPost`, `commentaire`, `creationDate`, `modificationDate` FROM `post`";
         $data = [];
         return $this->dataBase->Select($sql, $data);
+    }
+    /**
+     * @param int limit set the number of post return
+     * @param int offset set the start begin at 0
+     * 
+     * @return array of post
+     */
+    function ReadPost($limit, $offset = 0 ){
+        $sql = "SELECT `idPost`, `commentaire`, `creationDate`, `modificationDate` FROM `post` LIMIT $limit OFFSET $offset";
+        $data = [];
+        $lstpost = $this->dataBase->Select($sql, $data);
+        if (isset($lstpost["idPost"]))
+            $lstpost= [$lstpost];
+        return $lstpost;
     }
 
     function ReadPostById($id){

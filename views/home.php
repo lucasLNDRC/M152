@@ -27,7 +27,7 @@
 					<!-- main right col -->
 					<div class="column col-sm-10 col-xs-11" id="main">
 						
-						<?php require_once "views/nav.php";?>
+						<?php require_once "views/nav.php"?>
 					  
 						<div class="padding">
 							<div class="full col-sm-9">
@@ -38,29 +38,7 @@
 								 <!-- main col left --> 
 								 <div class="col-sm-5">
 								   
-									  <div class="panel panel-default">
-										<div class="panel-thumbnail"><img src="img/bg_5.jpg" class="img-responsive"></div>
-										<div class="panel-body">
-										  <p class="lead">Urbanization</p>
-										  <p>45 Followers, 13 Posts</p>
-										  
-										  <p>
-											<img src="img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">
-										  </p>
-										</div>
-									  </div>
-
-								   
-									  <div class="panel panel-default">
-										<div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Bootstrap Examples</h4></div>
-										  <div class="panel-body">
-											<div class="list-group">
-											  <a href="http://usebootstrap.com/theme/facebook" class="list-group-item">Modal / Dialog</a>
-											  <a href="http://usebootstrap.com/theme/facebook" class="list-group-item">Datetime Examples</a>
-											  <a href="http://usebootstrap.com/theme/facebook" class="list-group-item">Data Grids</a>
-											</div>
-										  </div>
-									  </div>
+									  <?= AfficherPost(5)?>
 								   
 									  <div class="well"> 
 										   <form class="form-horizontal" role="form">

@@ -7,13 +7,12 @@ class Media{
     }
 
     function InsertMedia( $nomFichierMedia, $typeMedia, $creationDate, $idPost){
-        $sql = "INSERT INTO `facebook`.`Media` (`nomFichierMedia`, `typeMedia`, `creationDate`, `idPost`) 
-        VALUES (:nomFichierMedia, :typeMedia, :creationDate, :idPost);";
+        $sql = "INSERT INTO `facebook`.`media` (`nomFichierMedia`, `typeMedia`, `creationDate`, `modoficationDate`, `idPost`) 
+        VALUES (:nomFichierMedia, :typeMedia, :creationDate, :creationDate, :idPost);";
         $data=[":idPost"=> $idPost, 
         ":creationDate"=> $creationDate, 
         ":nomFichierMedia"=> $nomFichierMedia, 
         ":typeMedia"=> $typeMedia];
-        echo "good";
         return $this->dataBase->Insert($sql, $data);
     }
 
@@ -30,9 +29,12 @@ class Media{
     }
 
     function ReadMediaByIdPost($idPost){
-        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media` WHERE idPost = :id";
-        $data = [":id" => $idPost];
-        return $this->dataBase->Select($sql, $data);
+        $sql = "SELECT `idMedia`, `nomFichierMedia`, `typeMedia`, `creationDate`, 'modoficationDate',`idPost` FROM `media` WHERE idPost = :idPost";
+        $data = [":idPost" => $idPost];
+        $lstmedia = $this->dataBase->Select($sql, $data);
+        if (isset($lstmedia["idPost"]))
+            $lstmedia= [$lstmedia];
+        return $lstmedia;
     }
 
     function ReadMediaByNomFichierMedia($nomFichierMedia){
@@ -49,6 +51,13 @@ class Media{
         ":nomFichierMedia"=> $nomFichierMedia,
         ":typeMedia"=> $typeMedia,
         ":idMedia" => $idMedia];
+        return $this->dataBase->Insert($sql, $data);;
+    }
+
+    function DeleteMediaByIdPost($idPost){
+        $sql = "DELETE FROM `facebook`.`media` WHERE `idPost`= :idPost;";
+        $data=[":idPost"=> $idPost];
+
         return $this->dataBase->Insert($sql, $data);;
     }
 }
