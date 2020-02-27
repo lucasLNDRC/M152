@@ -36,7 +36,7 @@
 										<?= (isset($erreur["type"]) ? $erreur["type"] : "") ?>
 										<?= (isset($erreur["move"]) ? $erreur["move"] : "") ?>
 										<?= (isset($erreur["size"]) ? $erreur["size"] : "") ?>
-										<h4><input type="file" name="fileToUpload[]" accept="image/jpeg,image/png,image/gif" multiple id="fileToUpload"></h4>
+										<h4><input type="file" name="fileToUpload[]" accept="image/jpeg,image/png,image/gif,video/mp4,video/webm,video/ogg,audio/mpeg,audio/ogg,audio/wav" multiple id="fileToUpload"></h4>
 									</div>
 									<div>
 										<label for="commentaire" class="Mylabel"><h4>Commentaire</h4></label>

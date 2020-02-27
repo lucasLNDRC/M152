@@ -27,7 +27,7 @@ class Post{
      * @return array of post
      */
     function ReadPost($limit, $offset = 0 ){
-        $sql = "SELECT `idPost`, `commentaire`, `creationDate`, `modificationDate` FROM `post` LIMIT $limit OFFSET $offset";
+        $sql = "SELECT `idPost`, `commentaire`, `creationDate`, `modificationDate` FROM `post` ORDER by creationDate desc LIMIT $limit OFFSET $offset";
         $data = [];
         $lstpost = $this->dataBase->Select($sql, $data);
         if (isset($lstpost["idPost"]))
