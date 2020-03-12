@@ -3,8 +3,8 @@ $btn= filter_input(INPUT_POST, "post");
 
 $commentaire = filter_input(INPUT_POST, "commentaire");
 $erreur = [];
-if ($btn == "post"){
-    $db->db->beginTransaction();
+if ($btn){
+    Db::$db->beginTransaction();
     $post = new Post($db);
 
     $date = date("Y-m-d");
@@ -27,7 +27,7 @@ if ($btn == "post"){
                     i','',$fichiers['name'][$i]);
                     
                     // Si le type MIME correspond à une image, Déplacement depuis le répertoire temporaire et on l’affiche
-                    if(!in_array($fichiers['type'][$i], ["image/png", "image/gif", "image/jpeg", "video/mp4", "video/webm", "video/ogg", "audio/mpeg", "audio/ogg", "audio/wav"])){
+                    if(!in_array($fichiers['type'][$i], ["image/png", "image/gif", "image/jpeg", "video/mp4", "video/webm", "video/ogg", "audio/mp3", "audio/ogg", "audio/wav"])){
                         $work = false;
                         $erreur["type"] = "<span style='color:red;'>Le type n'est pas bon .</span>";
                         var_dump($fichiers);
@@ -51,7 +51,7 @@ if ($btn == "post"){
                         elseif (in_array($fichiers['type'][$i], ["video/mp4", "video/webm", "video/ogg"])) {
                             $work = move_uploaded_file($fichiers['tmp_name'][$i],'media/video/'.$nom_fichier);
                         }
-                        elseif (in_array($fichiers['type'][$i], ["audio/mpeg", "audio/ogg", "audio/wav"])) {
+                        elseif (in_array($fichiers['type'][$i], ["audio/mp3", "audio/ogg", "audio/wav"])) {
                             $work = move_uploaded_file($fichiers['tmp_name'][$i],'media/sound/'.$nom_fichier);
                         }
                         else
@@ -69,7 +69,7 @@ if ($btn == "post"){
             $work = false;
         }
         if (!$work){
-            $db->db->rollBack();
+            Db::$db->rollBack();
 
             for ($i=0;$i<count($fichiers['name']);$i++){
                 $nom_fichier = preg_replace('/[^a-z0-9\.\-]/
@@ -79,7 +79,7 @@ if ($btn == "post"){
             $erreur["move"] = "<span style='color:red;'>Le fichier n'a pas peu etre déplacer</span>";
         }
         else{
-            $db->db->commit();
+            Db::$db->commit();
             header('Location: index.php?action=home');
         }
     }

@@ -37,6 +37,7 @@
 								  
 								 <!-- main col left --> 
 								<div class="col-sm-5">
+									<?= $errorSupr ? "<div class='alert alert-danger mt-1' role='alert'>La supretion n'a pas pu être faite</div>" : "" ?>
 									<?= AfficherPost(5)?>
 								</div>
 								<!-- main col right -->

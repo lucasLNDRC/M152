@@ -3,6 +3,8 @@
  * 
  */
 
+$errorSupr = filter_input(INPUT_GET, "supr");
+
 /**
  * 
  */
@@ -22,8 +24,8 @@ function AfficherPost($limit, $offset=0){
         $affichage .='        <p>';
         $affichage .='        <img src="css/img/uFp_tsTJboUY7kue5XAsGAs28.png" height="28px" width="28px">';
         $affichage .='        </p>';
-        $affichage .='<form action="?action=Mod" method="post"><button name="mod" value="mod">Modifier</button> </form>
-                      <form action="?action=Supr" method="post"><button name="supr" value="supr">Suprimer</button></form>';
+        $affichage .='<form action="?action=Mod" method="post"><button name="mod" value="'.$lsPost[$i]["idPost"].'">Modifier</button> </form>
+                      <form action="?action=Supr" method="post"><button name="supr" value="'.$lsPost[$i]["idPost"].'">Suprimer</button></form>';
         $affichage .='    </div>';
         $affichage .='</div>';
     }
@@ -44,7 +46,7 @@ function AfficheMedia($dataMedia){
             Your browser does not support the video tag.
              </video></div>';
         }
-        elseif (in_array($dataMedia[$i]["typeMedia"], ["audio/mpeg", "audio/ogg", "audio/wav"])) {
+        elseif (in_array($dataMedia[$i]["typeMedia"], ["audio/mp3", "audio/ogg", "audio/wav"])) {
             $htmlMedia .='<div class="panel-thumbnail"><audio controls>
             <source src="media/sound/'.$dataMedia[$i]["nomFichierMedia"].'" type="'.$dataMedia[$i]["typeMedia"].'">
             Your browser does not support the audio element.

@@ -23,23 +23,10 @@ $routes = array(
     'anonymous' => array(
         'home' => 'home',
         'post' => 'post',
-        'default'=>'home'
-    ),
-    'banned' => array(
-        'home' => 'home',
-        'default'=>'home'
-    ),
-    'member' => array(
-        'home' => 'home',
-        'post' => 'post',
-        'default'=>'home'
-    ),
-    'admin' => array(
-        'home' => 'home',
-        'post' => 'post',
+        'Mod' => 'modifier',
+        'Supr' => 'suprimer',
         'default'=>'home'
     )
-    
 );
 try {
     // si la route existe pour le role choisi, on l'utilise

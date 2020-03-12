@@ -17,11 +17,11 @@ class Db{
     function __construct()
     {
         try{
-            if ($this->db === null)
+            if (Db::$db === null)
             {
                 $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-                $this->db = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PWD, $pdo_options);
-                $this->db->exec('SET CHARACTER SET utf8');
+                Db::$db = new PDO("mysql:host=".DB_SERVER.";dbname=".DB_NAME, DB_USER, DB_PWD, $pdo_options);
+                Db::$db->exec('SET CHARACTER SET utf8');
             } 
         }
         catch (Exception $e){  die("Impossible de se connecter à la base ". $e->getMessage());}
@@ -32,14 +32,16 @@ class Db{
      */
     function Select($sql, $data){
         try{
-            $query = $this->db->prepare($sql);
+            $query = Db::$db->prepare($sql);
             $query->execute($data);
             
             $donnee = $query->fetchAll(PDO::FETCH_ASSOC);
             if (count($donnee)>1)
                 return $donnee;
-            else
+            else if (count($donnee)==1)
                 return  $donnee[0];
+            else 
+                return $donnee;
         }
         catch (Exception $e) {
             throw new Exception();            
@@ -51,7 +53,7 @@ class Db{
      */
     function Insert($sql, $data){
         try{
-            $query = $this->db->prepare($sql);
+            $query = Db::$db->prepare($sql);
     
             $query->execute($data);
             return true;
